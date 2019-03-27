@@ -1,12 +1,12 @@
 package tk.mybatis.simple.mapper;
 
-import java.util.List;
-import java.util.Map;
-
 import org.apache.ibatis.annotations.Param;
-
+import org.apache.ibatis.session.RowBounds;
 import tk.mybatis.simple.model.SysRole;
 import tk.mybatis.simple.model.SysUser;
+
+import java.util.List;
+import java.util.Map;
 
 public interface UserMapper {
 	
@@ -17,6 +17,13 @@ public interface UserMapper {
 	 * @return
 	 */
 	SysUser selectById(Long id);
+
+	/**
+	 * 查询全部用户
+	 *
+	 * @return
+	 */
+	List<SysUser> selectPage(RowBounds rowBounds);
 
 	/**
 	 * 查询全部用户

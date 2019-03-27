@@ -398,8 +398,18 @@
 	    	#{total, mode=OUT, jdbcType=BIGINT}
 	    )}
 	</select>
-	
-	<insert id="insertUserAndRoles" statementType="CALLABLE">
+    <select id="selectPage" resultType="tk.mybatis.simple.model.SysUser" parameterType="org.apache.ibatis.session.RowBounds">
+		select id,
+			   user_name userName,
+			   user_password userPassword,
+			   user_email userEmail,
+			   user_info userInfo,
+			   head_img headImg,
+			   create_time createTime
+		from sys_user
+	</select>
+
+    <insert id="insertUserAndRoles" statementType="CALLABLE">
 	    {call insert_user_and_roles(
 	    	#{user.id, mode=OUT, jdbcType=BIGINT}, 
 	    	#{user.userName, mode=IN},

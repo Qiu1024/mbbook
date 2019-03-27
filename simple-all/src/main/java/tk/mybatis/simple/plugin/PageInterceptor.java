@@ -39,6 +39,7 @@ public class PageInterceptor implements Interceptor {
 
 	@Override
     public Object intercept(Invocation invocation) throws Throwable {
+        System.out.println("PageInterceptor>>"+invocation.getMethod());
         //获取拦截方法的参数
         Object[] args = invocation.getArgs();
         MappedStatement ms = (MappedStatement) args[0];

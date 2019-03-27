@@ -1,19 +1,15 @@
 package tk.mybatis.simple.mapper;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
-
 import tk.mybatis.simple.model.SysPrivilege;
 import tk.mybatis.simple.model.SysRole;
 import tk.mybatis.simple.model.SysUser;
 import tk.mybatis.simple.type.Enabled;
+
+import java.util.*;
 
 public class UserMapperTest extends BaseMapperTest {
 	
@@ -43,6 +39,23 @@ public class UserMapperTest extends BaseMapperTest {
 			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
 			//调用 selectAll 方法查询所有用户
 			List<SysUser> userList = userMapper.selectAll();
+			//结果不为空
+			Assert.assertNotNull(userList);
+			//用户数量大于 0 个
+			Assert.assertTrue(userList.size() > 0);
+		} finally {
+			//不要忘记关闭 sqlSession
+			sqlSession.close();
+		}
+	}
+
+	@Test
+	public void testSelectPage(){
+		SqlSession sqlSession = getSqlSession();
+		try {
+			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+			//调用 selectAll 方法查询所有用户
+			List<SysUser> userList = userMapper.selectPage(new RowBounds(1,3));
 			//结果不为空
 			Assert.assertNotNull(userList);
 			//用户数量大于 0 个
